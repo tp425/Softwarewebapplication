@@ -1,1 +1,1 @@
-You have selected to find Latest value of all ticker and value :33.119999, 632.98999, 37.84, 24.66, 752.669983
+You have selected to find Latest value of EBAY ticker and value :24.66

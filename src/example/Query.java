@@ -45,7 +45,7 @@ public class Query {
 			if(ticker.equals("all")){
 				if(stocktype.equals("Latest")){
 					System.out.println("Latest all");
-			       query = "SELECT Ticker_symbol,close,Date FROM history ORDER BY Date desc limit 5 ";
+			       query = "SELECT Ticker_symbol,close,Date FROM history ORDER BY Date desc limit 10 ";
 				}
 				else if(stocktype.equals("Average")){
 					System.out.println("Average all");

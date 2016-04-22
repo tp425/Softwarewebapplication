@@ -80,8 +80,20 @@ public class querycontroller extends HttpServlet {
 			    .trim();
 		
 		String hello="helo";
+		StringBuilder latestval = new StringBuilder() ;
 		if(priceoption.equals("Latest")){
-			hello="You have selected to find Latest value of "+ ticker_val+ " ticker and value :"+stockvalues;
+			
+			for(int i=0;i<qq.stockvalue.size();i++){
+				latestval.append(qq.tickername.get(i).toString());
+				latestval.append(": ");
+				latestval.append(qq.stockvalue.get(i).toString());
+				latestval.append(" , ");
+				//latestval="Ticker"+qq.tickername.get(i).toString()+" values are" + qq.stockvalue.get(i).toString();
+				
+			}
+			System.out.println("Latest values appended "+latestval.toString());
+			if(ticker_val.equals("all")) hello="The Latest values are " + latestval;
+			else hello="You have selected to find Latest value of "+ ticker_val+ " ticker and value :"+stockvalues;
 		}
 		if(priceoption.equals("Highest")){
 			hello="You have selected to find Highest value of "+ ticker_val+ " ticker for time period"+ daterange
