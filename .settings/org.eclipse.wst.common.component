@@ -56,6 +56,9 @@
         <dependent-module archiveName="ajt-2.9.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Thara Philips/Documents/thara_docs/Rutgers/Software eng2/ANN/ANN/lib/ajt-2.9.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jfreechart-1.0.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Thara Philips/Downloads/jfreechart-1.0.6.jar/jfreechart-1.0.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="Software"/>
         <property name="java-output-path" value="/Software/build/classes"/>
     </wb-module>

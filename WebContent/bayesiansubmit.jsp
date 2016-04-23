@@ -6,6 +6,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<style type="text/css">
+.checkbox{
+    display: inline-block;
+	}
+</style>
 
 </head>
 
@@ -64,8 +69,7 @@ action="indicatorcontroller" >
 <input id="button" type="submit" value="submit1" /><br>
 </form>
 
-<p>Select Ticker to view graph </p><br>
-
+<p>Select Ticker to view prices on chart </p>
 <form  method="post"
 action="graphcontroller" > 
  Ticker: <select id ="gticker" name="gticker">  
@@ -80,8 +84,39 @@ action="graphcontroller" >
   <option value="RHT">RHT</option>
   <option value="BAC">BAC</option>
 </select><br>
+
+<div id='checkbox'>
+<input type="checkbox" id="Dategraph" name="Dategraph" value="Dategraph"> For Date Graph
+<input type="checkbox" id="Timegraph" name="Timegraph" value="Timegraph"> For Time Graph
+</div>
+
+<script>
+document.getElementById("Dategraph").addEventListener("click", myFunction);
+document.getElementById("Timegraph").addEventListener("click", myFunction1);
+function myFunction() {
+	document.getElementById("Timegraph").checked = false;
+	document.getElementById('Dates').style.display = 'block';
+	document.getElementById('Time').style.display = 'none';
+	}
+function myFunction1() {
+	document.getElementById("Dategraph").checked = false;
+	document.getElementById('Dates').style.display = 'none';
+	document.getElementById('Time').style.display = 'block';
+}
+</script>
+<div id="Dates" style="display:none;">
 <input type="date" id="gfromdate" name="gfromdate" value="2016-01-01">
 <input type="date" id="gtodate" name="gtodate" value="2016-01-11">
+</div>
+
+<div id="Time" style="display:none;">
+<select id ="fromtime" name="fromtime">  
+  <option value="5">5 Mins</option>
+  <option value="10">10 Mins</option>
+  <option value="15">15 Mins</option>
+</select>
+</div>
+
 <input id="button" type="submit" value="submit2" /><br>
 </form>
 

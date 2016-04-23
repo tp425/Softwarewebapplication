@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,6 +57,7 @@ public class indicatorcontroller extends HttpServlet {
 				//String[] label= ind.stockvaldbarraydate;
 				String[] label=ind.date_label();
 				
+				
 				double[] indivalres=null;
 				if(indicator.equals("sma")){
 					indivalres=indavg.myAverage(indival, 3);
@@ -67,10 +69,10 @@ public class indicatorcontroller extends HttpServlet {
 		       // double[] expind={90,15,20,10,15};//[65, 59, 80, 81, 56, 55, 40]
 		// dispatch it to bayesian.jsp
 				RequestDispatcher dispatch;
-				dispatch = request.getRequestDispatcher("chart.jsp");
+				dispatch = request.getRequestDispatcher("RealChart.jsp");
 				request.setAttribute("indicator", indivalres);
-				
-				request.setAttribute("label", label);
+				String[] label_temp = Arrays.copyOfRange(label, 2, label.length);
+				request.setAttribute("label", label_temp);
 				
 				System.out.println("end");
 				dispatch.forward(request, response);

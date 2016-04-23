@@ -168,7 +168,7 @@ public class bayesiancontroller extends HttpServlet {
 	    }
 
 	    if (returnInt > 0) {
-	      returnInt = returnInt - 1;
+	      returnInt = returnInt ;
 	    }
 
 	    return (returnInt);

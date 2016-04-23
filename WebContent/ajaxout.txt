@@ -1,1 +1,1 @@
-You have selected to find Latest value of EBAY ticker and value :24.66
+The Latest values are BBY: 33.119999 , AMZN: 632.98999 , YHOO: 37.84 , EBAY: 24.66 , GOOG: 752.669983 , AAPL: 107.129997 , BAC: 14.93 , FB: 112.419998 , GS: 166.979996 , RHT: 76.059998 , 
