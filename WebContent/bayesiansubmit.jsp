@@ -51,6 +51,7 @@ action="indicatorcontroller" >
  Indicator:<select id="indicator" name="indicator">
 	<option value="sma">SimpleMovingAverage</option>
   	<option value="ema">ExponentialMovingAverage</option>
+  	<option value="obv">OnBalanceVolume</option>
 </select>
  Ticker: <select id ="iticker" name="iticker">  
   <option value="YHOO">YHOO</option>
@@ -114,6 +115,9 @@ function myFunction1() {
   <option value="5">5 Mins</option>
   <option value="10">10 Mins</option>
   <option value="15">15 Mins</option>
+  <option value="n5">Next 5 Mins</option>
+  <option value="n10">Next 10 Mins</option>
+  <option value="n15">Next 15 Mins</option>
 </select>
 </div>
 
@@ -154,10 +158,7 @@ Date: <select id ="daterange" name="daterange">
 <input  id="button"  type="submit" value="run" /><br>
 </form>
 
-<form  method="post"
-action="Onbalancecontroller" > 
-<input  id="button"  type="submit" value="obv" /><br>
-</form>
+
 
 <tr>Result: <%= request.getAttribute("resp") %></tr> 
 
