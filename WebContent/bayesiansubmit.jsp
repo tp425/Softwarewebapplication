@@ -112,7 +112,7 @@ function myFunction1() {
 
 <div id="Time" style="display:none;">
 <select id ="fromtime" name="fromtime">  
-  <option value="5">5 Mins</option>
+  <option value="5">5 Mins</option> 
   <option value="10">10 Mins</option>
   <option value="15">15 Mins</option>
   <option value="n5">Next 5 Mins</option>
