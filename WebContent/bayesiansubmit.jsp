@@ -154,6 +154,11 @@ Date: <select id ="daterange" name="daterange">
 <input  id="button"  type="submit" value="run" /><br>
 </form>
 
+<form  method="post"
+action="Onbalancecontroller" > 
+<input  id="button"  type="submit" value="obv" /><br>
+</form>
+
 <tr>Result: <%= request.getAttribute("resp") %></tr> 
 
 
