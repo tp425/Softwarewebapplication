@@ -105,6 +105,7 @@ package example;
 				stmt = (Statement) conn.createStatement();
 				System.out.println("in after connection");			
 				String query = "SELECT Time, Price FROM realtime WHERE Ticker_symbol='"+ticker+"' ORDER BY Time DESC LIMIT " + time;	
+				System.out.println(query);
 				Statement st=conn.createStatement();
 				ResultSet rs = st.executeQuery(query);
 				while (rs.next())
@@ -116,6 +117,7 @@ package example;
 			     }
 				 st.close();	
 				 System.out.println("Stock value from database"+stockvaldbclose);
+				 System.out.println("Stock value from database"+stockvaldbclosedate);
 	
 	              stockvaldbarrayclose = new double[stockvaldbclose.size()];
 			      for (int i=0; i < stockvaldbarrayclose.length; i++)

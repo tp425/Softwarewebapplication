@@ -115,15 +115,16 @@ public class bayesiancontroller extends HttpServlet {
 				e.printStackTrace();
 			}
 			ann annpredict=new ann(5, "rawTrainingData.csv");
-			predictedval_ann=annpredict.ann_predictor();
+			annpredict.days_after_currentday=diff;
+			predictedval_ann=annpredict.ann_predictor(diff);
 			
 		}
 		else if(diff>=5){//SVM
 			svmTrain svm=new svmTrain();
-			svm.symbol="AAPL";
+			//svm.symbol="AAPL";
 			try {
 				
-				vote=svm.svmprediction();
+				vote=svm.svmprediction(ticker);
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

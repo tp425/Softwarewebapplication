@@ -20,6 +20,11 @@ package example;
 		static Connection conn = null;
 		static Statement stmt = null;
 		public String[] stockvaldbarraydate;
+		public int[] stockvaldbvolumearray;
+		
+		public int[] volume(){			
+			return stockvaldbvolumearray;			
+		}
 		
 		public String[] date_label(){
 			for(int i = 0; i < stockvaldbarraydate.length / 2; i++)
@@ -42,6 +47,7 @@ package example;
 
 			ArrayList<Double> stockvaldbclose=new ArrayList<Double>();
 			ArrayList<String> stockvaldbclosedate=new ArrayList<String>();
+			ArrayList<Integer> stockvaldbvolume=new ArrayList<Integer>();
 			double[] stockvaldbarrayclose = null;	
 			
 						
@@ -53,7 +59,7 @@ package example;
 				conn = DriverManager.getConnection("jdbc:mysql://localhost/stockhistory", "root", "root");
 				stmt = (Statement) conn.createStatement();
 				System.out.println("in after connection");			
-				String query = "SELECT close,Date FROM History WHERE Ticker_symbol='"+ticker+"' "
+				String query = "SELECT close,Date,Volume FROM History WHERE Ticker_symbol='"+ticker+"' "
 						+ "AND Date >='"+ fromdate+"' AND Date<= '"+todate+"'  ";	
 				Statement st=conn.createStatement();
 				ResultSet rs = st.executeQuery(query);
@@ -62,6 +68,7 @@ package example;
 //					 
 					 stockvaldbclose.add(rs.getDouble("close")); 
 					 stockvaldbclosedate.add(rs.getString("Date")); 
+					 stockvaldbvolume.add(rs.getInt("Volume"));
 //					 
 			     }
 				 st.close();	
@@ -77,6 +84,12 @@ package example;
 			      for (int i=0; i < stockvaldbarraydate.length; i++)
 			      {
 			    	  stockvaldbarraydate[i] = stockvaldbclosedate.get(i);
+//			    	 			          
+			      }	
+			      stockvaldbvolumearray = new int[stockvaldbvolume.size()];
+			      for (int i=0; i < stockvaldbvolumearray.length; i++)
+			      {
+			    	  stockvaldbvolumearray[i] = stockvaldbvolume.get(i);
 //			    	 			          
 			      }	
 					 

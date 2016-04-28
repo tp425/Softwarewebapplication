@@ -65,6 +65,14 @@ public class SVMPredict {
 				//for(int i=0;i<predictions.length;i++)System.out.println(predictions[i]);
 				vote= predictions[0] >0 ? vote+1 : vote-1;
 				System.out.println("predictions[0] ..."+predictions[0] );
+				if(predictions[0]>0)
+				{
+					System.out.println("BUY");
+				}
+				else
+				{
+					System.out.println("SELL");
+				}
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
@@ -90,12 +98,12 @@ public class SVMPredict {
 					sb.append(" "+count+":"+prices.get(i));
 					count++;
 				}else{
-					if(prices.get(i)>=prices.get(i-1)){
-						sb.insert(0, "+1");
-					}else{
-						sb.insert(0, "-1");
-					}
-					//sb.insert(0, "+1");
+//					if(prices.get(i)>=prices.get(i-1)){
+//						sb.insert(0, "+1");
+//					}else{
+//						sb.insert(0, "-1");
+//					}
+					sb.insert(0, "+1");
 					count=1;
 					//System.out.println(sb.toString());
 					writer.println(sb.toString());

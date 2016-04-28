@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import example.ExpoMovingaverage;
 import example.ExtractData_indicator;
+import example.Onbalanceindicator;
 
 /**
  * Servlet implementation class indicatorcontroller
@@ -50,11 +52,13 @@ public class indicatorcontroller extends HttpServlet {
 		System.out.println("Indicator "+indicator);
 		String iticker=request.getParameter("iticker");
 		System.out.println("Ticker "+iticker);
+		ArrayList<Integer> indivalres_list = new ArrayList<>();
 		        
 				ExtractData_indicator ind=new ExtractData_indicator();
 				ExpoMovingaverage indavg=new ExpoMovingaverage();
 				double[] indival=ind.Indicatorval(iticker,fromdate,todate);
 				//String[] label= ind.stockvaldbarraydate;
+				int[] volume=ind.volume();
 				String[] label=ind.date_label();
 				
 				
@@ -64,16 +68,36 @@ public class indicatorcontroller extends HttpServlet {
 				}else if (indicator.equals("ema")){
 					indivalres=indavg.myEMAverage(indival, 3);
 				}
+				else if (indicator.equals("obv")){
+					System.out.println("In OBV");
+					Onbalanceindicator obvind= new Onbalanceindicator();
+					indivalres_list=obvind.obv(indival,volume);
+					//Converting list to array 
+					  indivalres = new double[indivalres_list.size()];
+				      for (int i=0; i < indivalres.length; i++)
+				      {
+				    	  indivalres[i] = indivalres_list.get(i).doubleValue();
+				          
+				      }	
+				      
+				}
+				for(int i=0;i<indivalres.length;i++) System.out.println("indivalres "+indivalres[i]);
 				for(int i=0;i<label.length;i++) System.out.println("Date"+label[i]);
 		        
 		       // double[] expind={90,15,20,10,15};//[65, 59, 80, 81, 56, 55, 40]
 		// dispatch it to bayesian.jsp
 				RequestDispatcher dispatch;
-				dispatch = request.getRequestDispatcher("RealChart.jsp");
-				request.setAttribute("indicator", indivalres);
-				String[] label_temp = Arrays.copyOfRange(label, 2, label.length);
-				request.setAttribute("label", label_temp);
-				
+				if(indicator.equals("obv")){
+					dispatch = request.getRequestDispatcher("BarChart.jsp");
+					request.setAttribute("indicator", indivalres);
+					String[] label_temp = Arrays.copyOfRange(label, 1, label.length);
+					request.setAttribute("label", label_temp);
+				}else{
+					dispatch = request.getRequestDispatcher("RealChart.jsp");
+					request.setAttribute("indicator", indivalres);
+					String[] label_temp = Arrays.copyOfRange(label, 2, label.length);
+					request.setAttribute("label", label_temp);
+				}
 				System.out.println("end");
 				dispatch.forward(request, response);
 	}

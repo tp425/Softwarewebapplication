@@ -48,64 +48,44 @@ import SVMlib.DataFileReader;
 public class svmTrain {
 	static ArrayList<Double> prices=new ArrayList();
 	public static String[] symbols;
-	public static String symbol;
+	 static String symbol;
 	
     static String foldername = "C:\\Users\\Thara Philips\\Documents\\thara_docs\\Rutgers\\Software eng2\\svm\\SVM_data";
 	public static void createModels() throws IOException, ClassNotFoundException {
-
+		System.out.println("in create model");
 		//*String[] symbols=new String[]{"YHOO","AMZN","GOOG","BBY","EBAY","LNKD","MSFT","FB","TWTR","AAPL"};		
-		//String[] symbols=new String[]{"AAPL"};
+	//	symbols=new String[]{"GOOG"};
 	//	for (String symbol : symbols) {
-			//*String trainFileName = Constants.foldername+"\\training\\"+symbol;
-			String trainFileName = foldername+"\\training\\"+symbol;
+		System.out.println("symbol name "+ symbol);
+			String trainFileName=foldername+"\\Training\\"+symbol;
+			System.out.println("Path "+trainFileName);
 			//Read training file
-			Instance[] trainingInstances = DataFileReader.readDataFile(trainFileName);             
+		Instance[] trainingInstances = DataFileReader.readDataFile(trainFileName);             
 
 
 			//Setup parameters
-//			svm_parameter param = new svm_parameter();
-//			param.probability = 1;
-//			param.gamma = 0.2;
-//			param.nu = 0.5;
-//			param.C = 1;
-//			param.svm_type = svm_parameter.C_SVC;       
-//			param.cache_size = 20000;
-//			param.eps = 0.001;
-//
-//			//Register kernel function
-//			KernelManager.setCustomKernel(new RBFKernel(param));
-			
+			svm_parameter param = new svm_parameter();
+			param.probability = 1;
+			param.gamma = 0.2;
+			param.nu = 0.5;
+			param.C = 1;
+			param.svm_type = svm_parameter.C_SVC;       
+			param.cache_size = 20000;
+			param.eps = 0.001;
+
 			//Register kernel function
-	        KernelManager.setCustomKernel(new LinearKernel());        
-	        
-	        //Setup parameters
-	        svm_parameter param = new svm_parameter(); 
+			KernelManager.setCustomKernel(new RBFKernel(param));   
 
 			//Train the model
 			System.out.println("Training started...");
 			svm_model model = SVMTrainer.train(trainingInstances, param);
 			System.out.println("Training completed.");
-			
-			SVMTrainer.saveModel(model, foldername+"\\model\\"+symbol);
-			//model = SVMPredictor.loadModel("C:/Users/Thara Philips/Documents/thara_docs/Rutgers/Software eng2/svm/SVM_data/model1/AAPL");
-			
+
 			//Save the trained model
-			//*SVMTrainer.saveModel(model, Constants.foldername+"\\model\\"+symbol);
-//			SVMTrainer.saveModel(model,foldername+"\\model1\\"+symbol);
-			
-			//writer = new PrintWriter(foldername+"\\training\\"+symbol, "UTF-8");
-			ObjectOutputStream oStream = new ObjectOutputStream(new FileOutputStream(foldername+"\\model\\"+symbol));
-	        oStream.writeObject(model);       
-	        
-	        oStream.flush();
-	        oStream.close();
-	        PrintWriter writer;
-	        
-	       
-	        
+			SVMTrainer.saveModel(model,foldername+"\\Model\\"+symbol);
 			//model = SVMPredictor.load_model("a1a.model");
 
-	//	}
+//	}
 	}
 
 	private static void writeOutputs(String outputFileName, double[] predictions) throws IOException {
@@ -116,18 +96,20 @@ public class svmTrain {
 		writer.close();
 	}
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {    
-
-		createInstances();
-		createModels();   
-		SVMPredict prediction= new SVMPredict();
-		for (String symbol : symbols) {
-			System.out.println(prices);
-		prediction.predict(prices,symbol );
-		}
-	}
-	public int svmprediction() throws ClassNotFoundException, IOException, InstantiationException, IllegalAccessException{
+//	public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {    
+//
+//		createInstances();
+//		createModels();   
+//		SVMPredict sp= new SVMPredict();
+//		for (String symbol : symbols) {
+//			System.out.println(prices);
+//		int vote=sp.predict(prices,symbol );
+//		System.out.println(vote);
+//		}
+//	}
+	public int svmprediction( String symbol) throws ClassNotFoundException, IOException, InstantiationException, IllegalAccessException{
 		System.out.println("In SVM prediction");
+		this.symbol=symbol;
 		int vote=0;
 		createInstances();
 		createModels();   
@@ -182,12 +164,13 @@ public class svmTrain {
 		int count=1;
 		PrintWriter writer;
 		try {
-			//*File f=new File(Constants.foldername+"\\training\\"+symbol);
-			File f=new File(foldername+"\\training\\"+symbol);	
-			System.out.println(f);
+//			File f=new File(Constants.foldername+"\\Training\\"+symbol);
+			File f=new File(foldername+"\\Training\\"+symbol);
+//			 FileWriter writer = null;
 			f.createNewFile();
-			//*writer = new PrintWriter(Constants.foldername+"\\training\\"+symbol, "UTF-8");
-			writer = new PrintWriter(foldername+"\\training\\"+symbol, "UTF-8");
+			
+		//writer = new FileWriter(f);
+			writer = new PrintWriter(foldername+"\\Training\\"+symbol, "UTF-8");
 			for(int i=0;i<prices.size();i++){
 				if(count<=5){
 					sb.append(" "+count+":"+prices.get(i));

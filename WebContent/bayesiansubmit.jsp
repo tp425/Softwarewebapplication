@@ -115,9 +115,15 @@ function myFunction1() {
   <option value="5">5 Mins</option> 
   <option value="10">10 Mins</option>
   <option value="15">15 Mins</option>
+  <option value="20">20 Mins</option>
+  <option value="25">25 Mins</option>
+  <option value="30">30 Mins</option>
   <option value="n5">Next 5 Mins</option>
   <option value="n10">Next 10 Mins</option>
   <option value="n15">Next 15 Mins</option>
+  <option value="n20">Next 20 Mins</option>
+  <option value="n25">Next 25 Mins</option>
+  <option value="n30">Next 30 Mins</option>
 </select>
 </div>
 

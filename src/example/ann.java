@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.neuroph.core.NeuralNetwork;
@@ -22,10 +23,11 @@ public class ann {
 	
 	static int count=0;
 	static double pred;
+	public static ArrayList<Double>  prediction_value_list=new ArrayList<Double>();
 	static Connection connection = null;
 	static Statement statement = null;
 	static String driver = "com.mysql.jdbc.Driver";
-	static int days_after_currentday;
+	public static int days_after_currentday;
 	static String tick;
 	
 	static int countentries=0;
@@ -42,15 +44,18 @@ public class ann {
 	public ann(int slidingWindowSize, String rawDataFilePath) {
 		this.rawDataFilePath = rawDataFilePath;
 		this.slidingWindowSize = slidingWindowSize;
+		prediction_value_list.clear();
 	}
 	
-    public double ann_predictor() throws IOException{
+    public double ann_predictor(int days_after_currentday) throws IOException{
     	ann predictor = new ann(5, "rawTrainingData.csv");
     	predictor.prepareData();
     	System.out.println("Training starting");
     	predictor.trainNetwork();	
     	System.out.println("Testing network");
-    	double predictedvalue=predictor.testNetwork();
+    	System.out.println("No of days "+days_after_currentday);
+    	double predictedvalue=predictor.testNetwork( days_after_currentday);
+    	System.out.println("in main"+prediction_value_list);
     	return predictedvalue;
     }
 	
@@ -162,7 +167,7 @@ public class ann {
 	}
 	
 	
-	public double testNetwork() 
+	public double testNetwork(int days_after_currentday) 
 	{
 		
 		NeuralNetwork neuralNetwork = NeuralNetwork.createFromFile(neuralNetworkModelFilePath);
@@ -178,6 +183,7 @@ public class ann {
 		System.out.println("Predicted value : " +pred );
 		while(count<days_after_currentday)
 		{
+			System.out.println("no of days"+days_after_currentday);
 			double normalizedValue = normalizeValue(pred);
 			valuesQueue.add(normalizedValue);
 			//countentries++;
@@ -192,15 +198,24 @@ public class ann {
 			neuralNetwork.calculate();
 			double[] networkOutput1 = neuralNetwork.getOutput();
 //			//System.out.println("Expected value  : 2066.96");
-			 pred=deNormalizeValue(networkOutput1[0]);
+			pred=deNormalizeValue(networkOutput1[0]);			
 			System.out.println("Predicted value  " +count+": "+pred );
 			//testNetwork();
+			prediction_value_list.add(pred);
+			System.out.println(prediction_value_list);
 			count++;
+			
 //			
 		}
-		System.out.println("Prediction for "+days_after_currentday+"th day from today:"+pred);
+		count=0;
+		System.out.println("Prediction for "+days_after_currentday+"th day from today:"+pred);	
+		System.out.println("Real time predicted values from ann: " +prediction_value_list);
 		return pred;
 
+	}
+	public ArrayList<Double> Predictedvalues_anngraph(){
+		System.out.println("Real time predicted values from ann: " +prediction_value_list);
+		return prediction_value_list;
 	}
 
 }
